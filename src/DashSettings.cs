@@ -14,15 +14,15 @@ namespace DashMonke
         {
             var File = new ConfigFile(Path.Combine(Paths.ConfigPath, "DashMonke.cfg"), true);
 
-            ConfigEntry<float> CfgPower = File.Bind("Dash Settings", "Power", 15f);
-            ConfigEntry<float> CfgEnd = File.Bind("Dash Settings", "EndPower", 17f);
-            ConfigEntry<float> CfgDuration = File.Bind("Dash Settings", "Duration", 0.2f);
+            ConfigEntry<float> CfgPower = File.Bind("Dash Settings", "Power", 100f);
+            ConfigEntry<float> CfgEnd = File.Bind("Dash Settings", "EndPower", 1f);
+            ConfigEntry<float> CfgDuration = File.Bind("Dash Settings", "Duration", 0.1f);
 
             ConfigEntry<bool> CfgControl = File.Bind("Dash Settings", "Controlled", false);
             ConfigEntry<bool> CfgCancel = File.Bind("Dash Settings", "UseCancel", false);
 
             ConfigEntry<float> CfgMP = File.Bind("Dash Settings", "Powermultiplier", 0f);
-            ConfigEntry<float> CfgME = File.Bind("Dash Settings", "Endmultiplier", 0f);
+            ConfigEntry<float> CfgME = File.Bind("Dash Settings", "Endmultiplier", 1.05f);
 
             ConfigEntry<float> CFGwait = File.Bind("Dash Settings", "WaitTime", 0f);
 

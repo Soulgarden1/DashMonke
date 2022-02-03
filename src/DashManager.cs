@@ -71,8 +71,9 @@ namespace DashMonke
                   
                 if (Pdash.controlled) Direction = P.headCollider.transform.forward;
                 
-                float targMag = Pdash.power + (Pdash.pm * CachedMagnitude);
-                Vector3 targVel = Direction * (Mathf.Min(targMag * Pdash.duration, 30) / Pdash.duration); 
+                float targMag = Pdash.power + (Pdash.powerm * CachedMagnitude);
+                Vector3 targVel = Direction * (Mathf.Min(targMag * Pdash.duration, 30) / Pdash.duration);
+                targVel = Vector3.ClampMagnitude(targVel, 200);
 
                 RB.velocity = targVel;
             }
@@ -113,8 +114,10 @@ namespace DashMonke
 
             if (ApplyBoost)
             {
-                Vector3 targVel = Direction * (Pdash.ending + (Pdash.em * CachedMagnitude));
-                targVel = Vector3.ClampMagnitude(targVel, 200);
+                Vector3 targVel = Direction * (Pdash.ending + (Pdash.endm * CachedMagnitude));
+                targVel = Vector3.ClampMagnitude(targVel, 100);
+
+                if (!RB.useGravity) targVel = Vector3.ClampMagnitude(targVel, 50);
 
                 RB.velocity = targVel;
             }
@@ -142,8 +145,11 @@ namespace DashMonke
             this.controlled = controlled;
             this.cancelable = cancelable;
 
-            this.pm = pm;
-            this.em = em;
+            if (pm > 10) pm = 10;
+            if (em > 2) em = 2;
+
+            this.powerm = pm;
+            this.endm = em;
 
             this.wait = wait;
         }
@@ -157,8 +163,8 @@ namespace DashMonke
             this.controlled = false;
             this.cancelable = false;
 
-            this.pm = 0;
-            this.em = 0;
+            this.powerm = 0;
+            this.endm = 0;
 
             this.wait = 0;
         }
@@ -170,8 +176,8 @@ namespace DashMonke
         public bool controlled;
         public bool cancelable;
 
-        public float pm;
-        public float em;
+        public float powerm;
+        public float endm;
 
         public float wait;
     }
