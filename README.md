@@ -1,13 +1,13 @@
 # DashMonke
 The new and imrpoved Dash Monke is here!
 
-
+![](Assets/DashMonke.gif)
 
 Dash around with a button of your choice with an incredibly customizable dash. </br>
 The mod only works in modded lobbies - using it elsewhere is **cheating**.
 
 There are some differnces to the old DashMonke mods:
-- Dashes can now only be performed in mid air
+- Dashes can now only be performed when your hands are not touching anything
 - Hitting colliders with your hands will prematurely end a dash
 - Now only works in modded lobbies
 
@@ -36,6 +36,10 @@ There are some differnces to the old DashMonke mods:
 
 **EndMultiplier:**
 - Same as PowerMultiplier but for EndPower
+
+**Wait:**
+- If this number is above 2, instead of being able to dash again once touching something with your hands you have to wait out a timer before you can dash again
+- When in no gravity this number will be bumped up to 8 if it is below 8 seconds already
 
 ## Input
 **UseRight:**
