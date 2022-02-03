@@ -12,7 +12,6 @@ namespace DashMonke
         private Rigidbody RB;
         private GorillaLocomotion.Player P;
         private float CachedMagnitude = 0;
-        private bool Released = true;
         private bool Buffer = false;
 
         public Dash Pdash;
@@ -44,6 +43,7 @@ namespace DashMonke
         void Update()
         {
             bool pressed = false;
+            bool dashed = false;
 
             XRNode Controller = DashSettings.UseRight ? XRNode.RightHand : XRNode.LeftHand;
             InputFeatureUsage<bool> Button = DashSettings.UsePrimary ? CommonUsages.primaryButton : CommonUsages.secondaryButton;
@@ -51,23 +51,14 @@ namespace DashMonke
             if (!Buffer) InputDevices.GetDeviceAtXRNode(Controller).TryGetFeatureValue(Button, out pressed);
             InputDevices.GetDeviceAtXRNode(Controller).TryGetFeatureValue(Button, out Buffer);
 
-            if (CanDash && pressed && !P.disableMovement)
+            if (CanDash && pressed && !P.disableMovement && !Dashing)
             {
                 Dash();
-                Released = false;
-            }
-
-            if(Released && !pressed)
-            {
-                Released = true;
+                dashed = true;
             }
 
             if (Dashing)
             {
-                if(Pdash.cancelable && pressed && Released)
-                {
-                    EndDash(true);
-                }
                   
                 if (Pdash.controlled) Direction = P.headCollider.transform.forward;
                 
@@ -76,6 +67,11 @@ namespace DashMonke
                 targVel = Vector3.ClampMagnitude(targVel, 200);
 
                 RB.velocity = targVel;
+
+                if (Pdash.cancelable && pressed && !dashed)
+                {
+                    EndDash(true);
+                }
             }
 
             if(P.IsHandTouching(false) || P.IsHandTouching(true))
@@ -98,7 +94,7 @@ namespace DashMonke
             CanDash = false;
             Dashing = true;
 
-            StartCoroutine(DashTimer());
+            StartCoroutine("DashTimer");
         }
 
         IEnumerator DashTimer()
@@ -109,7 +105,7 @@ namespace DashMonke
 
         void EndDash(bool ApplyBoost)
         {
-            StopCoroutine(DashTimer());
+            StopCoroutine("DashTimer");
             Dashing = false;
 
             if (ApplyBoost)
@@ -122,7 +118,7 @@ namespace DashMonke
                 RB.velocity = targVel;
             }
 
-            if (Pdash.wait >= 2) StartCoroutine(WaitTimer());
+            if (Pdash.wait >= 2) StartCoroutine("WaitTimer");
         }
 
         IEnumerator WaitTimer()
