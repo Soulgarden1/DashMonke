@@ -8,6 +8,6 @@ namespace DashMonke
     {
         public const string GUID = "com.frogrilla.gorillatag.dashmonke";
         public const string Name = "DashMonke";
-        public const string Version = "1.0.0";
+        public const string Version = "1.0.1";
     }
 }

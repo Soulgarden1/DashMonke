@@ -36,6 +36,7 @@ namespace DashMonke
         {
             Console.WriteLine("DashManager Disabled");
             Pdash = new Dash();
+            RB.velocity = Vector3.zero;
 
             CanDash = false;
         }
