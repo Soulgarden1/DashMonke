@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using System;
 using UnityEngine;
+using System.ComponentModel;
 using Utilla;
 
 namespace DashMonke
@@ -11,6 +12,7 @@ namespace DashMonke
 
     /* This attribute tells Utilla to look for [ModdedGameJoin] and [ModdedGameLeave] */
     [ModdedGamemode]
+    [Description("A mod inspired by the dash mechanic in the game Celeste. Works with HauntedModMenu.")]
     [BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
     [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
     public class DashPlugin : BaseUnityPlugin
